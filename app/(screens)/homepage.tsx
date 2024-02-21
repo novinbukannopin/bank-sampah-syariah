@@ -3,6 +3,7 @@ import {View, Text, Image, StyleSheet, ScrollView, Pressable, Touchable, Button,
 import {SafeAreaView} from "react-native-safe-area-context";
 import Title from "@/components/Title";
 import {AntDesign} from '@expo/vector-icons';
+import Footer from "@/components/Footer";
 
 const Feature = [
     {
@@ -103,7 +104,14 @@ const Homepage = ({navigation}: any) => {
                         flex: 1,
                         borderTopLeftRadius: 20,
                         borderTopRightRadius: 20,
-                        backgroundColor: "#f7ef81",
+                        backgroundColor: "white",
+                        shadowColor: "#000",
+                        shadowOffset: {
+                            width: 0,
+                            height: 2,
+                        },
+                        shadowOpacity: 0.25,
+                        shadowRadius: 3.84,
                         flexDirection: 'row',
                         flexWrap: 'wrap',
                         justifyContent: 'center',
@@ -130,7 +138,7 @@ const Homepage = ({navigation}: any) => {
                                         height: 100,
                                         gap: 10,
                                         padding: 4,
-                                        backgroundColor: "green",
+                                        backgroundColor: "#15978F",
                                         borderRadius: 10,
                                         marginBottom: 10,
                                     }}
@@ -161,9 +169,10 @@ const Homepage = ({navigation}: any) => {
                         </View>
                     </View>
                 </View>
-                <View style={styles.footer}>
-                    <Text style={styles.footerText}>#ayobuangsampahdiBSS</Text>
-                </View>
+                {/*<View style={styles.footer}>*/}
+                {/*    <Text style={styles.footerText}>#ayobuangsampahdiBSS</Text>*/}
+                {/*</View>*/}
+                <Footer/>
             </ScrollView>
         </SafeAreaView>
     );

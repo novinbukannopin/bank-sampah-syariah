@@ -3,6 +3,29 @@ import {View, Text, Image, StyleSheet, ScrollView, Pressable, Touchable, Button,
 import {SafeAreaView} from "react-native-safe-area-context";
 import Title from "@/components/Title";
 import {AntDesign} from '@expo/vector-icons';
+import Footer from "@/components/Footer";
+
+const transaction = [
+    {
+        datetime: "11/12/2023",
+        jenis: "Plastik",
+        berat: "1.2 KG",
+        harga: "Rp. 10.000"
+    },
+//     buatkan 2 data transaction lagi dengan data yang berbeda
+    {
+        datetime: "14/12/2023",
+        jenis: "Kertas",
+        berat: "0.1 KG",
+        harga: "Rp. 1.000"
+    },
+    {
+        datetime: "09/12/2023",
+        jenis: "Botol",
+        berat: "0.5 KG",
+        harga: "Rp. 5.000"
+    }
+]
 
 
 const Sampahku = ({navigation}: any) => {
@@ -39,35 +62,200 @@ const Sampahku = ({navigation}: any) => {
                         width: "100%",
                         display: 'flex',
                         alignItems: 'center',
-                        padding: 10,
+                        paddingVertical: 10,
                         marginBottom: 24
                     }}>
-                        <Title/>
+                        <View style={{
+                            width: "100%",
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                        }}>
+                            <View style={styles.imageTextContainer}>
+                                <Text style={styles.imageText}>Bank Sampah Syariah</Text>
+                                <Text style={styles.imageText}>UIN Sunan Ampel Surabaya</Text>
+                            </View>
+                            <Text style={styles.brand}>Sampahku</Text>
+                        </View>
                     </View>
                     <View style={{
                         width: "100%",
+                        backgroundColor: '#15978F',
                         justifyContent: 'center',
                         alignItems: 'center',
                         padding: 8,
-                        flex: 1,
-                        marginBottom: 24
+                        paddingVertical: 10,
+                        marginBottom: 24,
+                        borderRadius: 4,
                     }}>
-                        <Text style={styles.title}>SAMPAHKU</Text>
+                        <Text style={styles.title}>Detail Transaksi Sampah</Text>
+                    </View>
+                    <View style={{
+                        width: "100%",
+                        flex: 1,
+                        gap: 10,
+                        backgroundColor: 'white',
+                        borderBottomLeftRadius: 20,
+                        borderBottomRightRadius: 20,
+                    }}>
+                        <View style={{
+                            width: "100%",
+                            height: 60,
+                            borderRadius: 4,
+                            display: 'flex',
+                            flexDirection: 'row',
+                            flexWrap: "nowrap",
+                            gap: 10,
+                            padding: 10,
+                            alignItems: 'center',
+                            justifyContent: 'flex-start',
+                            backgroundColor: '#15978F',
+                        }}>
+                            <View style={{
+                                flex: 1,
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                padding: 10,
+                                backgroundColor: 'white',
+                                borderRadius: 4
+                            }}>
+                                <Text style={{
+                                    fontFamily: "GabaritoSemibold",
+                                    fontSize: 12,
+                                }}>Datetime</Text>
+                            </View>
+                            <View style={{
+                                flex: 1,
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                padding: 10,
+                                backgroundColor: 'white',
+                                borderRadius: 4
+                            }}>
+                                <Text style={{
+                                    fontFamily: "GabaritoSemibold",
+                                    fontSize: 12,
+                                }}>Jenis</Text>
+                            </View>
+                            <View style={{
+                                flex: 1,
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                padding: 10,
+                                backgroundColor: 'white',
+                                borderRadius: 4
+                            }}>
+                                <Text style={{
+                                    fontFamily: "GabaritoSemibold",
+                                    fontSize: 12,
+                                }}>Berat</Text>
+                            </View>
+                            <View style={{
+                                flex: 1,
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                padding: 10,
+                                backgroundColor: 'white',
+                                borderRadius: 4
+                            }}>
+                                <Text style={{
+                                    fontFamily: "GabaritoSemibold",
+                                    fontSize: 12,
+                                }}>Total Harga</Text>
+                            </View>
+                        </View>
+
+
+                        {transaction.map((item, index) => (
+
+                            <View style={{
+                                width: "100%",
+                                height: 60,
+                                borderRadius: 4,
+                                display: 'flex',
+                                flexDirection: 'row',
+                                flexWrap: "nowrap",
+                                gap: 10,
+                                padding: 10,
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
+                                backgroundColor: '#fff4ec',
+                            }}>
+                                <View style={{
+                                    flex: 1,
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    padding: 10,
+                                    borderRadius: 4,
+                                    backgroundColor: 'white',
+                                }}>
+                                    <Text style={{
+                                        fontFamily: "GabaritoSemibold",
+                                        fontSize: 12,
+                                    }}>{item.datetime}</Text>
+                                </View>
+                                <View style={{
+                                    flex: 1,
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    padding: 10,
+                                    backgroundColor: 'white',
+                                    borderRadius: 4
+                                }}>
+                                    <Text style={{
+                                        fontFamily: "GabaritoSemibold",
+                                        fontSize: 12,
+                                    }}>{item.jenis}</Text>
+                                </View>
+                                <View style={{
+                                    flex: 1,
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    padding: 10,
+                                    backgroundColor: 'white',
+                                    borderRadius: 4
+                                }}>
+                                    <Text style={{
+                                        fontFamily: "GabaritoSemibold",
+                                        fontSize: 12,
+                                    }}>{item.berat}</Text>
+                                </View>
+                                <View style={{
+                                    flex: 1,
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    padding: 10,
+                                    backgroundColor: 'white',
+                                    borderRadius: 4
+                                }}>
+                                    <Text style={{
+                                        fontFamily: "GabaritoSemibold",
+                                        fontSize: 12,
+                                    }}>{item.harga}</Text>
+                                </View>
+                            </View>
+                        ))}
+
                     </View>
                 </View>
                 <View>
                     <Image source={require('../../assets/images/3r.png')}
                            style={{
-                               marginBottom: 30,
+                               marginBottom: 50,
                                width: "100%",
                                height: 200,
                                objectFit: "contain",
                            }}
                     />
                 </View>
-                <View style={styles.footer}>
-                    <Text style={styles.footerText}>#ayobuangsampahdiBSS</Text>
-                </View>
+                <Footer/>
             </ScrollView>
         </SafeAreaView>
     );
@@ -111,6 +299,7 @@ const styles = StyleSheet.create({
         height: 58,
     },
     title: {
+        color: "white",
         fontSize: 18,
         fontFamily: "GabaritoSemibold"
     },
@@ -134,11 +323,10 @@ const styles = StyleSheet.create({
     },
     imageText: {
         fontFamily: "GabaritoSemibold",
-        textAlign: "center",
     },
     brand: {
         fontFamily: "GabaritoBold",
-        fontSize: 24,
+        fontSize: 32,
     },
     formContainer: {
         width: '100%',

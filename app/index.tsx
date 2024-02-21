@@ -132,7 +132,7 @@ const Auth = ({navigation}: AuthFormProps) => {
 
                                                 style={{
                                                     borderWidth: 1,
-                                                    borderColor: "green",
+                                                    borderColor: "#15978F",
                                                     paddingVertical: 4,
                                                     paddingHorizontal: 16,
                                                     marginBottom: 10,
@@ -167,7 +167,7 @@ const Auth = ({navigation}: AuthFormProps) => {
 
                                                 style={{
                                                     borderWidth: 1,
-                                                    borderColor: "green",
+                                                    borderColor: "#15978F",
                                                     paddingVertical: 4,
                                                     paddingHorizontal: 16,
                                                     marginBottom: 10,
@@ -186,7 +186,7 @@ const Auth = ({navigation}: AuthFormProps) => {
 
                                         <TouchableOpacity
                                             style={{
-                                                backgroundColor: 'green',
+                                                backgroundColor: '#15978F',
                                                 paddingVertical: 10,
                                                 borderRadius: 6,
                                             }}
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 100,
         paddingHorizontal: 10,
-        
+
     },
     logo: {
         width: 66,
@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
     },
     footer: {
         width: '100%',
-        backgroundColor: 'green',
+        backgroundColor: '#15978F',
         alignItems: 'center',
         paddingVertical: 10,
     },
