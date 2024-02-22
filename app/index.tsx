@@ -14,6 +14,7 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import {Formik} from "formik";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import Title from "@/components/Title";
+import {ALERT_TYPE, AlertNotificationRoot, Dialog} from "react-native-alert-notification";
 
 
 interface FormValues {
@@ -36,185 +37,194 @@ const Auth = ({navigation}: AuthFormProps) => {
     const [loading, setLoading] = React.useState(false)
 
     return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView contentContainerStyle={styles.scrollContent}>
-                <View style={styles.backgroundImageContainer}>
-                    <Image
-                        source={require('../assets/images/trash-hero.png')}
-                        style={styles.backgroundImage}
-                    />
-                </View>
-                <View style={styles.content}>
-                    <View style={styles.logoContainer}>
+        <AlertNotificationRoot>
+
+            <SafeAreaView style={styles.container}>
+                <ScrollView contentContainerStyle={styles.scrollContent}>
+                    <View style={styles.backgroundImageContainer}>
                         <Image
-                            style={styles.logo}
-                            source={require('../assets/images/uinsa.png')}
+                            source={require('../assets/images/trash-hero.png')}
+                            style={styles.backgroundImage}
                         />
-                        <View>
-                            <Text style={styles.title}>Bank Sampah Syariah</Text>
-                            <Text style={styles.subtitle}>UIN Sunan Ampel Surabaya</Text>
+                    </View>
+                    <View style={styles.content}>
+                        <View style={styles.logoContainer}>
+                            <Image
+                                style={styles.logo}
+                                source={require('../assets/images/uinsa.png')}
+                            />
+                            <View>
+                                <Text style={styles.title}>Bank Sampah Syariah</Text>
+                                <Text style={styles.subtitle}>UIN Sunan Ampel Surabaya</Text>
+                            </View>
                         </View>
-                    </View>
-                    <View style={styles.imageContainer}>
-                        <Image
-                            source={{uri: 'https://placehold.jp/150x150.png'}}
-                            style={styles.image}
-                        />
-                        <Title/>
-                    </View>
-                    <View style={styles.formContainer}>
-                        <View>
-                            <Formik
-                                initialValues={{email: '', password: ''}}
-                                onSubmit={(values: FormValues) => {
-                                    setLoading(true)
-                                    setTimeout(() => {
-                                        console.log(values);
-                                        setLoading(false)
-                                        if (values.email === 'novin@test.com' && values.password === 'novinnovin') {
-                                            values.email = '';
-                                            values.password = '';
-                                            navigation.navigate('(screens)/homepage');
-                                        } else {
-                                            Alert.alert('Invalid Email or Password', 'Please try again');
+                        <View style={styles.imageContainer}>
+                            <Image
+                                source={{uri: 'https://placehold.jp/150x150.png'}}
+                                style={styles.image}
+                            />
+                            <Title/>
+                        </View>
+                        <View style={styles.formContainer}>
+                            <View>
+                                <Formik
+                                    initialValues={{email: '', password: ''}}
+                                    onSubmit={(values: FormValues) => {
+                                        setLoading(true)
+                                        setTimeout(() => {
+                                            console.log(values);
+                                            setLoading(false)
+                                            if (values.email === 'novin@test.com' && values.password === 'novinnovin') {
+                                                values.email = '';
+                                                values.password = '';
+                                                
+                                                navigation.navigate('(screens)/homepage');
+                                            } else {
+                                                Dialog.show({
+                                                    type: ALERT_TYPE.DANGER,
+                                                    title: 'Incorrect',
+                                                    textBody: 'Email or password is incorrect',
+                                                    button: 'close',
+                                                })
+                                            }
+                                        }, 2000)
+                                    }}
+                                    validate={(values: FormValues) => {
+                                        const errors: Partial<FormValues> = {};
+
+                                        // Validasi email
+                                        if (!values.email) {
+                                            errors.email = 'Email is required';
+                                        } else if (
+                                            !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
+                                                values.email
+                                            )
+                                        ) {
+                                            errors.email = 'Invalid email address';
                                         }
-                                    }, 2000)
-                                }}
-                                validate={(values: FormValues) => {
-                                    const errors: Partial<FormValues> = {};
 
-                                    // Validasi email
-                                    if (!values.email) {
-                                        errors.email = 'Email is required';
-                                    } else if (
-                                        !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
-                                            values.email
-                                        )
-                                    ) {
-                                        errors.email = 'Invalid email address';
-                                    }
+                                        // Validasi password
+                                        if (!values.password) {
+                                            errors.password = 'Password is required';
+                                        } else if (values.password.length < 8) {
+                                            errors.password = 'Password must be at least 8 characters';
+                                        }
 
-                                    // Validasi password
-                                    if (!values.password) {
-                                        errors.password = 'Password is required';
-                                    } else if (values.password.length < 8) {
-                                        errors.password = 'Password must be at least 8 characters';
-                                    }
-
-                                    return errors;
-                                }}
-                            >
-                                {({
-                                      handleChange,
-                                      handleBlur,
-                                      handleSubmit,
-                                      values,
-                                      errors,
-                                  }) => (
-                                    <View style={{
-                                        padding: 10
-                                    }}>
+                                        return errors;
+                                    }}
+                                >
+                                    {({
+                                          handleChange,
+                                          handleBlur,
+                                          handleSubmit,
+                                          values,
+                                          errors,
+                                      }) => (
                                         <View style={{
-                                            marginBottom: 8
+                                            padding: 10
                                         }}>
-                                            <Text style={{
-                                                fontSize: 18,
-                                                fontFamily: 'GabaritoSemibold',
-                                                marginBottom: 14,
+                                            <View style={{
+                                                marginBottom: 8
                                             }}>
-                                                Email
-                                            </Text>
-                                            <TextInput
-                                                onChangeText={handleChange('email')}
-                                                onBlur={handleBlur('email')}
-                                                value={values.email}
-                                                placeholder="Email"
-
-                                                style={{
-                                                    borderWidth: 1,
-                                                    borderColor: "#15978F",
-                                                    paddingVertical: 4,
-                                                    paddingHorizontal: 16,
-                                                    marginBottom: 10,
-                                                    borderRadius: 5,
-                                                    backgroundColor: '#fffffc',
-                                                    opacity: 0.8,
-                                                    fontFamily: 'GabaritoMedium'
-                                                }}
-                                            />
-                                            {errors.email &&
                                                 <Text style={{
-                                                    color: 'red',
-                                                    fontFamily: 'GabaritoMedium'
-                                                }}>{errors.email}</Text>}
-                                        </View>
+                                                    fontSize: 18,
+                                                    fontFamily: 'GabaritoSemibold',
+                                                    marginBottom: 14,
+                                                }}>
+                                                    Email
+                                                </Text>
+                                                <TextInput
+                                                    onChangeText={handleChange('email')}
+                                                    onBlur={handleBlur('email')}
+                                                    value={values.email}
+                                                    placeholder="Email"
 
-                                        <View style={{
-                                            marginBottom: 20
-                                        }}>
-                                            <Text style={{
-                                                fontSize: 18,
-                                                fontFamily: 'GabaritoSemibold',
-                                                marginBottom: 14,
-                                            }}>
-                                                Password
-                                            </Text>
-                                            <TextInput
-                                                onChangeText={handleChange('password')}
-                                                onBlur={handleBlur('password')}
-                                                value={values.password}
-                                                placeholder="Password"
-
-                                                style={{
-                                                    borderWidth: 1,
-                                                    borderColor: "#15978F",
-                                                    paddingVertical: 4,
-                                                    paddingHorizontal: 16,
-                                                    marginBottom: 10,
-                                                    borderRadius: 5,
-                                                    backgroundColor: '#fffffc',
-                                                    opacity: 0.8,
-                                                    fontFamily: 'GabaritoMedium'
-                                                }}
-                                            />
-                                            {errors.password &&
-                                                <Text style={{
-                                                    color: 'red',
-                                                    fontFamily: 'GabaritoMedium'
-                                                }}>{errors.password}</Text>}
-                                        </View>
-
-                                        <TouchableOpacity
-                                            style={{
-                                                backgroundColor: '#15978F',
-                                                paddingVertical: 10,
-                                                borderRadius: 6,
-                                            }}
-                                            onPress={() => handleSubmit()}>
-                                            {loading ? (
-                                                <ActivityIndicator size="small" color="#ffffff"/>
-                                            ) : (
-                                                <Text
                                                     style={{
-                                                        color: 'white',
-                                                        fontFamily: 'GabaritoSemibold',
-                                                        fontSize: 18,
-                                                        textAlign: 'center',
+                                                        borderWidth: 1,
+                                                        borderColor: "#15978F",
+                                                        paddingVertical: 4,
+                                                        paddingHorizontal: 16,
+                                                        marginBottom: 10,
+                                                        borderRadius: 5,
+                                                        backgroundColor: '#fffffc',
+                                                        opacity: 0.8,
+                                                        fontFamily: 'GabaritoMedium'
                                                     }}
-                                                >Submit</Text>
-                                            )}
-                                        </TouchableOpacity>
-                                    </View>
-                                )}
-                            </Formik>
+                                                />
+                                                {errors.email &&
+                                                    <Text style={{
+                                                        color: 'red',
+                                                        fontFamily: 'GabaritoMedium'
+                                                    }}>{errors.email}</Text>}
+                                            </View>
+
+                                            <View style={{
+                                                marginBottom: 20
+                                            }}>
+                                                <Text style={{
+                                                    fontSize: 18,
+                                                    fontFamily: 'GabaritoSemibold',
+                                                    marginBottom: 14,
+                                                }}>
+                                                    Password
+                                                </Text>
+                                                <TextInput
+                                                    onChangeText={handleChange('password')}
+                                                    onBlur={handleBlur('password')}
+                                                    value={values.password}
+                                                    placeholder="Password"
+
+                                                    style={{
+                                                        borderWidth: 1,
+                                                        borderColor: "#15978F",
+                                                        paddingVertical: 4,
+                                                        paddingHorizontal: 16,
+                                                        marginBottom: 10,
+                                                        borderRadius: 5,
+                                                        backgroundColor: '#fffffc',
+                                                        opacity: 0.8,
+                                                        fontFamily: 'GabaritoMedium'
+                                                    }}
+                                                />
+                                                {errors.password &&
+                                                    <Text style={{
+                                                        color: 'red',
+                                                        fontFamily: 'GabaritoMedium'
+                                                    }}>{errors.password}</Text>}
+                                            </View>
+
+                                            <TouchableOpacity
+                                                style={{
+                                                    backgroundColor: '#15978F',
+                                                    paddingVertical: 10,
+                                                    borderRadius: 6,
+                                                }}
+                                                onPress={() => handleSubmit()}>
+                                                {loading ? (
+                                                    <ActivityIndicator size="small" color="#ffffff"/>
+                                                ) : (
+                                                    <Text
+                                                        style={{
+                                                            color: 'white',
+                                                            fontFamily: 'GabaritoSemibold',
+                                                            fontSize: 18,
+                                                            textAlign: 'center',
+                                                        }}
+                                                    >Submit</Text>
+                                                )}
+                                            </TouchableOpacity>
+                                        </View>
+                                    )}
+                                </Formik>
+                            </View>
                         </View>
                     </View>
-                </View>
-                <View style={styles.footer}>
-                    <Text style={styles.footerText}>#ayobuangsampahdiBSS</Text>
-                </View>
-            </ScrollView>
-        </SafeAreaView>
+                    <View style={styles.footer}>
+                        <Text style={styles.footerText}>#ayobuangsampahdiBSS</Text>
+                    </View>
+                </ScrollView>
+            </SafeAreaView>
+        </AlertNotificationRoot>
     );
 };
 

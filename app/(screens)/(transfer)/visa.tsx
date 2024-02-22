@@ -16,6 +16,7 @@ import Modal from "react-native-modal"
 import {AntDesign, Feather,} from '@expo/vector-icons';
 import Footer from "@/components/Footer";
 import DropdownTransfer from "@/components/DropdownTransfer";
+import {ALERT_TYPE, Dialog, Toast} from "react-native-alert-notification";
 
 
 const TransferVisa = ({navigation}: any) => {
@@ -43,25 +44,44 @@ const TransferVisa = ({navigation}: any) => {
 
     const handleSubmit = () => {
         if (inputValue === "" || from === "" || to === "") {
-            Alert.alert("All fields are required")
-        } else {
+            Dialog.show({
+                type: ALERT_TYPE.WARNING,
+                title: 'Warning',
+                textBody: 'All fields are required',
+            })
+        } else if (Number(inputValue) <= 1000000 && Number(inputValue) >= 50000) {
             setLoading(true)
             toggleModal()
             setTimeout(() => {
                 setLoading(false)
             }, 2000)
+        } else {
+            Dialog.show({
+                type: ALERT_TYPE.WARNING,
+                title: 'Warning',
+                textBody: 'Input value terlalu kecil atau kurang dari saldo',
+            })
         }
     }
 
     const handleSubmitPIN = () => {
         if (pin !== "907907") {
-            Alert.alert("PIN is incorrect")
+            Dialog.show({
+                type: ALERT_TYPE.DANGER,
+                title: 'PIN Error',
+                textBody: "Your PIN is wrong!"
+            })
         } else {
             setLoading(true)
+            Dialog.show({
+                type: ALERT_TYPE.SUCCESS,
+                title: 'Success Transfer',
+                textBody: "Success transfer to " + to + "! Rp. " + new Intl.NumberFormat('id-ID').format(parseInt(inputValue))
+            })
             setTimeout(() => {
                 setLoading(false)
+                navigation.navigate('(screens)/transfer')
             }, 2000)
-            navigation.navigate('(screens)/transfer')
         }
     }
 

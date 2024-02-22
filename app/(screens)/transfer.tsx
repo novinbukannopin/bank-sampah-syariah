@@ -4,6 +4,7 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import Title from "@/components/Title";
 import {AntDesign, Feather,} from '@expo/vector-icons';
 import Footer from "@/components/Footer";
+import {AlertNotificationRoot} from "react-native-alert-notification";
 
 const transaction = [
     {
@@ -34,142 +35,146 @@ const Transfer = ({navigation}: any) => {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView contentContainerStyle={styles.scrollContent}>
-                <View style={{
-                    display: 'flex',
-                    flex: 1,
-                    padding: 10,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}>
-                    <View style={{
-                        display: 'flex',
-                        width: "100%",
-                        flexDirection: 'row',
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                    }}>
-                        <TouchableOpacity style={{
-                            marginBottom: 10,
-                        }}
-                                          onPress={() => navigation.navigate("(screens)/homepage")}>
-                            <AntDesign name="back" size={24} color="black"/>
-                        </TouchableOpacity>
-                        <Image
-                            source={{uri: 'https://placehold.jp/50x150.png'}}
-                            style={styles.image}
-                        />
-                    </View>
+        <AlertNotificationRoot>
 
+            <SafeAreaView style={styles.container}>
+                <ScrollView contentContainerStyle={styles.scrollContent}>
                     <View style={{
-                        width: "100%",
                         display: 'flex',
+                        flex: 1,
+                        padding: 10,
                         alignItems: 'center',
-                        paddingVertical: 10,
-                        marginBottom: 24
+                        justifyContent: 'center',
                     }}>
+                        <View style={{
+                            display: 'flex',
+                            width: "100%",
+                            flexDirection: 'row',
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                        }}>
+                            <TouchableOpacity style={{
+                                marginBottom: 10,
+                            }}
+                                              onPress={() => navigation.navigate("(screens)/homepage")}>
+                                <AntDesign name="back" size={24} color="black"/>
+                            </TouchableOpacity>
+                            <Image
+                                source={{uri: 'https://placehold.jp/50x150.png'}}
+                                style={styles.image}
+                            />
+                        </View>
+
                         <View style={{
                             width: "100%",
                             display: 'flex',
-                            alignItems: 'flex-start',
+                            alignItems: 'center',
+                            paddingVertical: 10,
+                            marginBottom: 24
                         }}>
-                            <View style={styles.imageTextContainer}>
-                                <Text style={styles.imageText}>Bank Sampah Syariah</Text>
-                                <Text style={styles.imageText}>UIN Sunan Ampel Surabaya</Text>
+                            <View style={{
+                                width: "100%",
+                                display: 'flex',
+                                alignItems: 'flex-start',
+                            }}>
+                                <View style={styles.imageTextContainer}>
+                                    <Text style={styles.imageText}>Bank Sampah Syariah</Text>
+                                    <Text style={styles.imageText}>UIN Sunan Ampel Surabaya</Text>
+                                </View>
+                                <Text style={styles.brand}>Transfer</Text>
                             </View>
-                            <Text style={styles.brand}>Transfer</Text>
                         </View>
-                    </View>
-                    <View style={{
-                        width: "100%",
-                        backgroundColor: '#15978F',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        padding: 8,
-                        paddingVertical: 10,
-                        marginBottom: 24,
-                        borderRadius: 4,
-                    }}>
-                        <Text style={styles.title}>Transfer</Text>
-                    </View>
+                        <View style={{
+                            width: "100%",
+                            backgroundColor: '#15978F',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            padding: 8,
+                            paddingVertical: 10,
+                            marginBottom: 24,
+                            borderRadius: 4,
+                        }}>
+                            <Text style={styles.title}>Transfer</Text>
+                        </View>
 
 
-                    <Text style={{
-                        fontFamily: "GabaritoSemibold",
-                        textAlign: "left",
-                        width: "100%",
-                        color: "#15978F",
-                        fontSize: 20,
-                        marginBottom: 4,
-                        padding: 10,
-                    }}>
-                        Aksi Transfer
-                    </Text>
+                        <Text style={{
+                            fontFamily: "GabaritoSemibold",
+                            textAlign: "left",
+                            width: "100%",
+                            color: "#15978F",
+                            fontSize: 20,
+                            marginBottom: 4,
+                            padding: 10,
+                        }}>
+                            Aksi Transfer
+                        </Text>
 
-                    <View style={{
-                        width: "100%",
-                        borderRadius: 12,
-                        flex: 1,
-                        gap: 10,
-                    }}>
-                        {transaction.map((item, index) => (
-                            <TouchableOpacity key={index}
-                                              onPress={() => navigation.navigate(item.navigate)}
-                                              style={{
-                                                  width: "100%",
-                                                  display: 'flex',
-                                                  flexDirection: 'row',
-                                                  backgroundColor: "white",
-                                                  padding: 24,
-                                                  paddingVertical: 22,
-                                                  gap: 16,
-                                                  flex: 1,
-                                                  borderRadius: 12,
-                                              }}>
-                                <Image source={item.icon}
-                                       style={{
-                                           height: 35,
-                                           width: 35,
-                                           objectFit: "contain",
-                                       }}/>
-                                <View style={{
-                                    display: 'flex',
-                                    flex: 1,
-                                    flexDirection: 'row',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center',
-                                }}>
-                                    <View>
-                                        <Text style={{
-                                            fontFamily: "GabaritoSemibold",
-                                            fontSize: 18,
-                                        }}>
-                                            {item.jenis}
-                                        </Text>
+                        <View style={{
+                            width: "100%",
+                            borderRadius: 12,
+                            flex: 1,
+                            gap: 10,
+                        }}>
+                            {transaction.map((item, index) => (
+                                <TouchableOpacity key={index}
+                                                  onPress={() => navigation.navigate(item.navigate)}
+                                                  style={{
+                                                      width: "100%",
+                                                      display: 'flex',
+                                                      flexDirection: 'row',
+                                                      backgroundColor: "white",
+                                                      padding: 24,
+                                                      paddingVertical: 22,
+                                                      gap: 16,
+                                                      flex: 1,
+                                                      borderRadius: 12,
+                                                  }}>
+                                    <Image source={item.icon}
+                                           style={{
+                                               height: 35,
+                                               width: 35,
+                                               objectFit: "contain",
+                                           }}/>
+                                    <View style={{
+                                        display: 'flex',
+                                        flex: 1,
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                    }}>
+                                        <View>
+                                            <Text style={{
+                                                fontFamily: "GabaritoSemibold",
+                                                fontSize: 18,
+                                            }}>
+                                                {item.jenis}
+                                            </Text>
+
+                                        </View>
 
                                     </View>
+                                </TouchableOpacity>
+                            ))}
 
-                                </View>
-                            </TouchableOpacity>
-                        ))}
+                        </View>
 
                     </View>
+                    <View>
+                        <Image source={require('../../assets/images/3r.png')}
+                               style={{
+                                   marginBottom: 50,
+                                   width: "100%",
+                                   height: 200,
+                                   objectFit: "contain",
+                               }}
+                        />
+                    </View>
+                    <Footer/>
+                </ScrollView>
+            </SafeAreaView>
+        </AlertNotificationRoot>
 
-                </View>
-                <View>
-                    <Image source={require('../../assets/images/3r.png')}
-                           style={{
-                               marginBottom: 50,
-                               width: "100%",
-                               height: 200,
-                               objectFit: "contain",
-                           }}
-                    />
-                </View>
-                <Footer/>
-            </ScrollView>
-        </SafeAreaView>
     );
 };
 
