@@ -14,12 +14,12 @@ const transaction = [
     {
         jenis: "E-Wallet",
         icon: require("../../assets/images/e_wallete.png"),
-        navigate: "(screens)/(transfer)/e-wallet"
+        navigate: "(screens)/(transfer)/visa"
     },
     {
         jenis: "Bank",
         icon: require("../../assets/images/bank.png"),
-        navigate: "(screens)/(transfer)/bank"
+        navigate: "(screens)/(transfer)/visa"
     }
 
 ]

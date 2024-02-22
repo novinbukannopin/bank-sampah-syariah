@@ -1,18 +1,76 @@
-import React from 'react';
-import {View, Text, Image, StyleSheet, ScrollView, Pressable, Touchable, Button, TouchableOpacity} from "react-native";
+import React, {useState} from 'react';
+import {
+    View,
+    Text,
+    Image,
+    StyleSheet,
+    ScrollView,
+    Pressable,
+    Touchable,
+    Button,
+    TouchableOpacity,
+    TextInput, ActivityIndicator, Alert
+} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
-import Title from "@/components/Title";
+import Modal from "react-native-modal"
 import {AntDesign, Feather,} from '@expo/vector-icons';
 import Footer from "@/components/Footer";
+import DropdownTransfer from "@/components/DropdownTransfer";
 
 
 const TransferVisa = ({navigation}: any) => {
 
-    const [show, setShow] = React.useState(false)
+    const [inputValue, setInputValue] = useState("");
+    const [messageInput, setMessageInput] = useState("");
+    const [loading, setLoading] = React.useState(false)
+    const [from, setFrom] = useState("");
+    const [to, setTo] = useState("")
+    const [pin, setPin] = useState("")
 
-    function toggleShow() {
-        setShow(!show)
+    const handleChange = (text: string) => {
+        // Allow only numbers
+        const numericValue = text.replace(/[^0-9]/g, "");
+        setInputValue(numericValue);
+    };
+
+    const handleSelectFrom = (value: string) => {
+        setFrom(value);
     }
+
+    const handleSelectTo = (value: string) => {
+        setTo(value);
+    }
+
+    const handleSubmit = () => {
+        if (inputValue === "" || from === "" || to === "") {
+            Alert.alert("All fields are required")
+        } else {
+            setLoading(true)
+            toggleModal()
+            setTimeout(() => {
+                setLoading(false)
+            }, 2000)
+        }
+    }
+
+    const handleSubmitPIN = () => {
+        if (pin !== "907907") {
+            Alert.alert("PIN is incorrect")
+        } else {
+            setLoading(true)
+            setTimeout(() => {
+                setLoading(false)
+            }, 2000)
+            navigation.navigate('(screens)/transfer')
+        }
+    }
+
+
+    const [isModalVisible, setModalVisible] = useState(false);
+
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -99,30 +157,275 @@ const TransferVisa = ({navigation}: any) => {
                         <View style={{
                             width: "100%",
                             display: 'flex',
-                            flexDirection: 'row',
+                            flexDirection: 'column',
                             justifyContent: 'space-between',
+                            alignItems: 'flex-start',
+                            borderBottomColor: "#15978F",
+                            borderBottomWidth: 1,
                         }}>
-                            <Text>
-                                From :
+                            <Text style={{
+                                fontFamily: "GabaritoSemibold",
+                                fontSize: 16,
+                            }}>
+                                From
                             </Text>
-                            <Text>
-                                Indonesia (IDR)
-                            </Text>
+                            <DropdownTransfer variant={"from"} onSelectValue={handleSelectFrom}/>
                         </View>
+                        <View>
+                            <Text style={{
+                                fontFamily: "GabaritoSemibold",
+                                fontSize: 16,
+                                marginTop: 10,
+                                marginBottom: 10,
+                            }}>
+                                You Send
+                            </Text>
+                            <TextInput
+                                onChangeText={handleChange}
+                                value={inputValue}
+                                placeholder="Ammount"
+                                inputMode="numeric"
+                                keyboardType={"number-pad"}
+                                style={{
+                                    borderWidth: 1,
+                                    borderColor: "#15978F",
+                                    paddingVertical: 6,
+                                    paddingHorizontal: 16,
+                                    marginBottom: 10,
+                                    borderRadius: 5,
+                                    backgroundColor: '#fffffc',
+                                    opacity: 0.8,
+                                    fontFamily: 'GabaritoMedium'
+                                }}
+                            />
+                        </View>
+                        <View style={{
+                            width: "100%",
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'space-between',
+                            alignItems: 'flex-start',
+                            borderBottomColor: "#15978F",
+                            borderBottomWidth: 1,
+                        }}>
+                            <Text style={{
+                                fontFamily: "GabaritoSemibold",
+                                fontSize: 16,
+                            }}>
+                                To
+                            </Text>
+                            <DropdownTransfer onSelectValue={handleSelectTo}/>
+                        </View>
+                        <View>
+                            <Text style={{
+                                fontFamily: "GabaritoSemibold",
+                                fontSize: 16,
+                                marginTop: 10,
+                                marginBottom: 10,
+                            }}>
+                                Message
+                            </Text>
+                            <TextInput
+                                onChangeText={(text) => setMessageInput(text)}
+                                value={messageInput}
+                                placeholder="Message"
+                                style={{
+                                    borderWidth: 1,
+                                    borderColor: "#15978F",
+                                    paddingVertical: 6,
+                                    paddingHorizontal: 16,
+                                    marginBottom: 10,
+                                    borderRadius: 5,
+                                    backgroundColor: '#fffffc',
+                                    opacity: 0.8,
+                                    fontFamily: 'GabaritoMedium'
+                                }}
+                            />
+                        </View>
+                        <TouchableOpacity
+                            style={{
+                                backgroundColor: '#15978F',
+                                paddingVertical: 10,
+                                borderRadius: 6,
+                            }}
+                            onPress={() => {
+                                handleSubmit();
+                            }}>
+                            {loading ? (
+                                <ActivityIndicator size="small" color="#ffffff"/>
+                            ) : (
+                                <Text
+                                    style={{
+                                        color: 'white',
+                                        fontFamily: 'GabaritoSemibold',
+                                        fontSize: 18,
+                                        textAlign: 'center',
+                                    }}
+                                >Submit</Text>
+                            )}
+                        </TouchableOpacity>
+                        <Modal isVisible={isModalVisible} animationIn={"fadeIn"}>
+                            <View style={{
+                                backgroundColor: "white",
+                                opacity: 0.9,
+                                borderRadius: 8,
+                                padding: 20,
+                                width: "100%",
+                                height: "80%",
 
+                            }}>
+                                <Text
+                                    style={{
+                                        padding: 12,
+                                        backgroundColor: "#15978F",
+                                        color: "white",
+                                        fontFamily: "GabaritoSemibold",
+                                        fontSize: 20,
+                                        borderRadius: 6,
+                                    }}>Transfer to {to}!</Text>
+                                <View style={{
+                                    flex: 1,
+                                    marginTop: 20,
+                                }}>
+                                    <Text style={{
+                                        fontFamily: "GabaritoSemibold",
+                                        fontSize: 16,
+                                        marginTop: 10,
+                                    }}>
+                                        From
+                                    </Text>
+                                    <Text style={{
+                                        fontFamily: "GabaritoSemibold",
+                                        fontSize: 20,
+                                        marginBottom: 10,
+                                    }}>
+                                        {from}
+                                    </Text>
+                                    <Text style={{
+                                        fontFamily: "GabaritoSemibold",
+                                        fontSize: 16,
+                                        marginTop: 10,
+                                    }}>
+                                        To
+                                    </Text>
+                                    <Text style={{
+                                        fontFamily: "GabaritoSemibold",
+                                        fontSize: 20,
+                                        marginBottom: 10,
+                                    }}>
+                                        {to}
+                                    </Text>
+
+                                    <Text style={{
+                                        fontFamily: "GabaritoSemibold",
+                                        fontSize: 16,
+                                        marginTop: 10,
+                                    }}>
+                                        Amount
+                                    </Text>
+                                    <Text style={{
+                                        fontFamily: "GabaritoSemibold",
+                                        fontSize: 20,
+                                        marginBottom: 10,
+                                    }}>
+                                        Rp. {new Intl.NumberFormat('id-ID').format(parseInt(inputValue))}
+                                    </Text>
+
+                                    {messageInput !== "" && (
+                                        <><Text style={{
+                                            fontFamily: "GabaritoSemibold",
+                                            fontSize: 16,
+                                            marginTop: 10,
+                                        }}>
+                                            Message
+                                        </Text><Text style={{
+                                            fontFamily: "GabaritoSemibold",
+                                            fontSize: 20,
+                                            marginBottom: 10,
+                                        }}>
+                                            {messageInput}
+                                        </Text></>
+                                    )}
+
+                                    <View>
+                                        <Text style={{
+                                            fontFamily: "GabaritoSemibold",
+                                            fontSize: 16,
+                                            marginTop: 10,
+                                            marginBottom: 10,
+                                        }}>
+                                            PIN
+                                        </Text>
+                                        <TextInput
+                                            onChangeText={(text) => setPin(text)}
+                                            value={pin}
+                                            placeholder="PIN"
+                                            keyboardType={"number-pad"}
+                                            style={{
+                                                borderWidth: 1,
+                                                borderColor: "#15978F",
+                                                paddingVertical: 6,
+                                                paddingHorizontal: 16,
+                                                marginBottom: 10,
+                                                borderRadius: 5,
+                                                backgroundColor: '#fffffc',
+                                                opacity: 0.8,
+                                                fontFamily: 'GabaritoMedium'
+                                            }}
+                                        />
+                                    </View>
+                                </View>
+
+                                <View style={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
+                                }}>
+                                    <TouchableOpacity
+                                        style={{
+                                            flex: 1,
+                                            padding: 12,
+                                            backgroundColor: 'red',
+                                            borderRadius: 6,
+                                        }}
+                                        onPress={toggleModal}>
+                                        <Text style={{
+                                            color: 'white',
+                                            fontFamily: 'GabaritoSemibold',
+                                            fontSize: 18,
+                                            textAlign: 'center',
+                                        }}>
+                                            Cancel
+                                        </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={{
+                                            flex: 1,
+                                            marginLeft: 10,
+                                            padding: 12,
+                                            backgroundColor: '#15978F',
+                                            borderRadius: 6,
+                                        }}
+                                        onPress={toggleModal}>
+                                        <Text style={{
+                                            color: 'white',
+                                            fontFamily: 'GabaritoSemibold',
+                                            fontSize: 18,
+                                            textAlign: 'center',
+                                        }}
+                                              onPress={() => {
+                                                  handleSubmitPIN();
+                                              }}>
+                                            Send
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </Modal>
                     </View>
 
                 </View>
-                <View>
-                    <Image source={require('../../../assets/images/3r.png')}
-                           style={{
-                               marginBottom: 50,
-                               width: "100%",
-                               height: 200,
-                               objectFit: "contain",
-                           }}
-                    />
-                </View>
+
                 <Footer/>
             </ScrollView>
         </SafeAreaView>
