@@ -39,7 +39,7 @@ const Feature = [
     {
         icon: require("../../assets/images/qr.png"),
         title: "QRIS",
-        navigate: "qris"
+        navigate: "scanner"
     }, {
         icon: require("../../assets/images/strategic.png"),
         title: "Pojok Sampah",

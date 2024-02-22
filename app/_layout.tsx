@@ -15,6 +15,7 @@ import Greenshowwaste from "@/app/(screens)/greenshowwaste";
 import Pojoksampah from "@/app/(screens)/pojoksampah";
 import Greenhealth from "@/app/(screens)/greenhealth";
 import GreenHealth from "@/app/(screens)/greenhealth";
+import Scanner from "@/app/(screens)/scanner";
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
@@ -84,6 +85,10 @@ export default () => {
                 <Stack.Screen
                     name={"(screens)/greenhealth"} component={GreenHealth}
                     options={{title: "GreenHealth", headerShown: false}}/>
+
+                <Stack.Screen
+                    name={"(screens)/scanner"} component={Scanner}
+                    options={{title: "Scanner", headerShown: false}}/>
             </Stack.Navigator>
         </TamaguiProvider>
     )
