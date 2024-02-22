@@ -24,7 +24,7 @@ const Feature = [
     {
         icon: require("../../assets/images/gold.png"),
         title: "Green Gold",
-        navigate: "gold"
+        navigate: "greengold"
     },
     {
         icon: require("../../assets/images/grocery.png"),
