@@ -171,7 +171,7 @@ const Sampahku = ({navigation}: any) => {
 
                         {transaction.map((item, index) => (
 
-                            <View style={{
+                            <View key={index} style={{
                                 width: "100%",
                                 height: 60,
                                 borderRadius: 4,

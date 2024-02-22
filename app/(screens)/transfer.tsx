@@ -7,20 +7,25 @@ import Footer from "@/components/Footer";
 
 const transaction = [
     {
-        jenis: "Jual Sampah",
-        date: "22 Juli 2023",
-        harga: "+ Rp. 10.000"
+        jenis: "Visa",
+        icon: require("../../assets/images/visa.png"),
+        navigate: "(screens)/(transfer)/visa"
     },
     {
-        jenis: "Jual Sampah",
-        date: "12 Juni 2023",
-        harga: "+ Rp. 13.000"
+        jenis: "E-Wallet",
+        icon: require("../../assets/images/e_wallete.png"),
+        navigate: "(screens)/(transfer)/e-wallet"
+    },
+    {
+        jenis: "Bank",
+        icon: require("../../assets/images/bank.png"),
+        navigate: "(screens)/(transfer)/bank"
     }
 
 ]
 
 
-const Rekening = ({navigation}: any) => {
+const Transfer = ({navigation}: any) => {
 
     const [show, setShow] = React.useState(false)
 
@@ -73,7 +78,7 @@ const Rekening = ({navigation}: any) => {
                                 <Text style={styles.imageText}>Bank Sampah Syariah</Text>
                                 <Text style={styles.imageText}>UIN Sunan Ampel Surabaya</Text>
                             </View>
-                            <Text style={styles.brand}>Informasi Rekening</Text>
+                            <Text style={styles.brand}>Transfer</Text>
                         </View>
                     </View>
                     <View style={{
@@ -86,102 +91,43 @@ const Rekening = ({navigation}: any) => {
                         marginBottom: 24,
                         borderRadius: 4,
                     }}>
-                        <Text style={styles.title}>Detail Informasi</Text>
+                        <Text style={styles.title}>Transfer</Text>
                     </View>
-                    <View style={{
-                        width: "100%",
-                        backgroundColor: 'white',
-                        borderBottomLeftRadius: 20,
-                        borderBottomRightRadius: 20,
-                        padding: 16,
-                        marginBottom: 10,
-                    }}>
-                        <Text style={{
-                            fontFamily: "GabaritoSemibold",
-                            fontSize: 20,
-                            color: "#15978F",
-                            marginBottom: 10,
-                        }}>
-                            Akun Rekening - IDR
-                        </Text>
-                        <View style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                        }}>
-                            <Text style={{
-                                fontFamily: "GabaritoMedium",
-                                fontSize: 32,
-                                color: "gray",
-                                marginBottom: 2,
-                            }}>
-                                IDR {show ? "7.900.000" : "********"}
-                            </Text>
-                            <TouchableOpacity
-                                onPress={() =>
-                                    toggleShow()}>
-                                {
-                                    show ? <Feather name="eye" size={24} color="black"/> :
-                                        <Feather name="eye-off" size={24} color="black"/>
-                                }
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{
-                            display: 'flex',
-                            width: "100%",
-                            flexDirection: 'row',
-                            gap: 10,
-                            alignItems: "center",
-                        }}>
-                            <Text style={{
-                                fontFamily: "GabaritoMedium",
-                                fontSize: 20,
-                                color: "gray",
 
-                            }}>
-                                Account No.
-                            </Text>
-                            <Text
-                                style={{
-                                    fontFamily: "GabaritoBold",
-                                    fontSize: 20,
-                                    color: "darkgray",
-                                }}>
-                                997-127-000-000-000
-                            </Text>
-                        </View>
-                    </View>
 
                     <Text style={{
                         fontFamily: "GabaritoSemibold",
                         textAlign: "left",
                         width: "100%",
-                        marginLeft: 10,
                         color: "#15978F",
                         fontSize: 20,
                         marginBottom: 4,
                         padding: 10,
                     }}>
-                        Aktivitas Terakhir
+                        Aksi Transfer
                     </Text>
 
                     <View style={{
                         width: "100%",
-                        backgroundColor: 'white',
                         borderRadius: 12,
-                        padding: 16,
                         flex: 1,
-                        gap: 20,
+                        gap: 10,
                     }}>
                         {transaction.map((item, index) => (
-                            <TouchableOpacity key={index} style={{
-                                width: "100%",
-                                display: 'flex',
-                                flexDirection: 'row',
-                                gap: 10,
-                            }}>
-                                <Image source={require('../../assets/images/activity_trash.png')}
+                            <TouchableOpacity key={index}
+                                              onPress={() => navigation.navigate(item.navigate)}
+                                              style={{
+                                                  width: "100%",
+                                                  display: 'flex',
+                                                  flexDirection: 'row',
+                                                  backgroundColor: "white",
+                                                  padding: 24,
+                                                  paddingVertical: 22,
+                                                  gap: 16,
+                                                  flex: 1,
+                                                  borderRadius: 12,
+                                              }}>
+                                <Image source={item.icon}
                                        style={{
                                            height: 35,
                                            width: 35,
@@ -201,21 +147,9 @@ const Rekening = ({navigation}: any) => {
                                         }}>
                                             {item.jenis}
                                         </Text>
-                                        <Text style={{
-                                            fontFamily: "GabaritoMedium",
-                                            color: "gray",
-                                            fontSize: 14,
-                                        }}>
-                                            {item.date}
-                                        </Text>
+
                                     </View>
-                                    <Text style={{
-                                        fontFamily: "GabaritoMedium",
-                                        color: "green",
-                                        fontSize: 16,
-                                    }}>
-                                        {item.harga}
-                                    </Text>
+
                                 </View>
                             </TouchableOpacity>
                         ))}
@@ -239,7 +173,7 @@ const Rekening = ({navigation}: any) => {
     );
 };
 
-export default Rekening;
+export default Transfer;
 
 const styles = StyleSheet.create({
     container: {

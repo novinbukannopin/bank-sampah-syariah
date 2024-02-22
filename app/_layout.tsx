@@ -8,6 +8,8 @@ import Auth from "@/app/index";
 import Homepage from "@/app/(screens)/homepage";
 import Sampahku from "@/app/(screens)/sampahku";
 import Rekening from "@/app/(screens)/rekening";
+import Transfer from "@/app/(screens)/transfer";
+import TransferVisa from "@/app/(screens)/(transfer)/visa";
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
@@ -53,6 +55,14 @@ export default () => {
                 <Stack.Screen
                     name={"(screens)/rekening"} component={Rekening}
                     options={{title: "Rekening", headerShown: false}}/>
+
+                <Stack.Screen
+                    name={"(screens)/transfer"} component={Transfer}
+                    options={{title: "Transfer", headerShown: false}}/>
+
+                <Stack.Screen
+                    name={"(screens)/(transfer)/visa"} component={TransferVisa}
+                    options={{title: "TransferVisa", headerShown: false}}/>
 
             </Stack.Navigator>
         </TamaguiProvider>
