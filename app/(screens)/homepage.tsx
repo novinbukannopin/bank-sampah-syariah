@@ -29,7 +29,7 @@ const Feature = [
     {
         icon: require("../../assets/images/grocery.png"),
         title: "Green Showwaste",
-        navigate: "showwaste"
+        navigate: "greenshowwaste"
     },
     {
         icon: require("../../assets/images/health.png"),

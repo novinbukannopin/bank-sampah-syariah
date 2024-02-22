@@ -11,6 +11,7 @@ import Rekening from "@/app/(screens)/rekening";
 import Transfer from "@/app/(screens)/transfer";
 import TransferVisa from "@/app/(screens)/(transfer)/visa";
 import Greengold from "@/app/(screens)/greengold";
+import Greenshowwaste from "@/app/(screens)/greenshowwaste";
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
@@ -68,6 +69,10 @@ export default () => {
                 <Stack.Screen
                     name={"(screens)/greengold"} component={Greengold}
                     options={{title: "Greengold", headerShown: false}}/>
+
+                <Stack.Screen
+                    name={"(screens)/greenshowwaste"} component={Greenshowwaste}
+                    options={{title: "Greenshowwaste", headerShown: false}}/>
             </Stack.Navigator>
         </TamaguiProvider>
     )
