@@ -34,7 +34,7 @@ const Feature = [
     {
         icon: require("../../assets/images/health.png"),
         title: "Green Health",
-        navigate: "health"
+        navigate: "greenhealth"
     },
     {
         icon: require("../../assets/images/qr.png"),

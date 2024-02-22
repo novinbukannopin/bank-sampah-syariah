@@ -50,6 +50,9 @@ export default DropdownTransfer;
 
 const styles = StyleSheet.create({
     container: {
+        borderWidth: 1,
+        borderRadius: 8,
+        borderColor: '#15978F',
         backgroundColor: 'white',
         width: '100%',
         marginBottom: 10,
