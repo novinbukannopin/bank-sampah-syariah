@@ -32,6 +32,19 @@ interface AuthFormProps {
     navigation: AuthFormNavigationProp;
 }
 
+// buatkan object data login untuk semua user
+const authDataLogin =
+    [
+    {
+        email: 'novin@nityasa.dev',
+        password: 'novinnovin'
+    },
+    {
+        email: 'admin@bss.id',
+        password: 'adminbss'
+    }
+    ]
+
 const Auth = ({navigation}: AuthFormProps) => {
 
     const [loading, setLoading] = React.useState(false)
@@ -60,7 +73,7 @@ const Auth = ({navigation}: AuthFormProps) => {
                         </View>
                         <View style={styles.imageContainer}>
                             <Image
-                                source={{uri: 'https://placehold.jp/150x150.png'}}
+                                source={require('../assets/images/main_logo.png')}
                                 style={styles.image}
                             />
                             <Title/>
@@ -74,12 +87,20 @@ const Auth = ({navigation}: AuthFormProps) => {
                                         setTimeout(() => {
                                             console.log(values);
                                             setLoading(false)
-                                            if (values.email === 'novin@test.com' && values.password === 'novinnovin') {
+                                            // buatkan if else untuk validasi email dan password dari mapping an data object authDataLogin untuk semua user
+
+                                            if(values.email === authDataLogin[0].email && values.password === authDataLogin[0].password){
                                                 values.email = '';
                                                 values.password = '';
-                                                
+
                                                 navigation.navigate('(screens)/homepage');
-                                            } else {
+                                            }
+                                            else if(values.email === authDataLogin[1].email && values.password === authDataLogin[1].password){
+                                                values.email = '';
+                                                values.password = '';
+                                                navigation.navigate('(screens)/homepage');
+                                            }
+                                            else {
                                                 Dialog.show({
                                                     type: ALERT_TYPE.DANGER,
                                                     title: 'Incorrect',
@@ -278,10 +299,11 @@ const styles = StyleSheet.create({
         marginBottom: 28,
     },
     image: {
-        width: 150,
+        width: 250,
         height: 150,
         borderRadius: 12,
         marginBottom: 18,
+        objectFit: 'contain',
     },
     imageTextContainer: {
         marginBottom: 4,

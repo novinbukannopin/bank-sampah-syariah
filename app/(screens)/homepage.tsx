@@ -72,7 +72,7 @@ const Homepage = ({navigation}: any) => {
                             <AntDesign name="back" size={24} color="black"/>
                         </TouchableOpacity>
                         <Image
-                            source={{uri: 'https://placehold.jp/50x150.png'}}
+                            source={require("../../assets/images/main_logo.png")}
                             style={styles.image}
                         />
                     </View>
@@ -229,8 +229,9 @@ const styles = StyleSheet.create({
         marginBottom: 28,
     },
     image: {
+        objectFit: 'contain',
         width: 150,
-        height: 50,
+        height: 45,
         borderRadius: 4,
         marginBottom: 18,
     },
